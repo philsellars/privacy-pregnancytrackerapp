@@ -100,6 +100,54 @@
                 font-size: 20px;
             }
         }
+
+        #gdpr-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #1d1d1f;
+            color: #f5f5f7;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        #gdpr-banner p {
+            margin: 0;
+            color: #f5f5f7;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        #gdpr-banner a {
+            color: #007aff;
+            text-decoration: none;
+        }
+
+        #gdpr-banner a:hover {
+            text-decoration: underline;
+        }
+
+        #gdpr-accept {
+            background-color: #007aff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        #gdpr-accept:hover {
+            background-color: #0071e3;
+        }
     </style>
 </head>
 <body>
@@ -170,5 +218,27 @@
         <h2>Consent</h2>
         <p>By using the Pregnancy Tracker App, you consent to this Privacy Policy and agree to its terms.</p>
     </div>
+
+    <div id="gdpr-banner" role="dialog" aria-label="Cookie notice">
+        <p>This website does not use cookies or collect any personal data. By continuing, you acknowledge the privacy policy on this page.</p>
+        <button id="gdpr-accept">Got it</button>
+    </div>
+
+    <script>
+        (function () {
+            var banner = document.getElementById('gdpr-banner');
+            try {
+                if (localStorage.getItem('gdpr-accepted')) {
+                    banner.style.display = 'none';
+                }
+            } catch (e) {}
+            document.getElementById('gdpr-accept').addEventListener('click', function () {
+                try {
+                    localStorage.setItem('gdpr-accepted', '1');
+                } catch (e) {}
+                banner.style.display = 'none';
+            });
+        }());
+    </script>
 </body>
 </html>
